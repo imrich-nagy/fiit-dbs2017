@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Log in{% endblock %}
+{% block content %}
+    <form action="" method="post" class="well well-lg">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{ request.form.username }}">
+        </div>
+        <button class="btn btn-success" type="submit">Login</button>
+    </form>
+    {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}</p>
+    {% endif %}
+{% endblock %}
