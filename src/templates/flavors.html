@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% set active = 'flavors' %}
+{% block title %}Flavors{% endblock %}
+{% block content %}
+            <ul class="list-group">
+            {% for (flavor,) in rows %}
+                <li class="list-group-item">{{ flavor }}</li>
+            {% endfor %}
+            </ul>
+{% endblock %}

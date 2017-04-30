@@ -1,14 +1,26 @@
 {% extends "base.html" %}
 {% block title %}Log in{% endblock %}
-{% block content %}
-    <form action="" method="post" class="well well-lg">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" value="{{ request.form.username }}">
+{% block body %}
+        <div class="container">
+            <div class="well well-lg center-block narrow">
+                <h1 class="text-center">
+                    <span class="middle">
+                        <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
+                    </span>
+                    Tealogger
+                </h1>
+                <form action="{{ url_for('login') }}" method="post">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control input-lg" id="username" name="username" value="{{ request.form.username }}">
+                    </div>
+                {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Can't log in:</strong>&ensp;{{ error }}
+                    </div>
+                {% endif %}
+                    <button class="btn btn-lg btn-success center-block" type="submit">Log in</button>
+                </form>
+            </div>
         </div>
-        <button class="btn btn-success" type="submit">Login</button>
-    </form>
-    {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}</p>
-    {% endif %}
 {% endblock %}

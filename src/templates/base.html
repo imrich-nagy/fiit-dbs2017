@@ -1,34 +1,37 @@
+<!DOCTYPE html>
+
 <html>
+
     <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <title>{% block title %}{% endblock %} &middot; Tealogger</title>
-        <link rel="stylesheet"
-              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-              crossorigin="anonymous">
+
+        <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
     </head>
+
+
     <body>
-        <div class="navbar navbar-default">
-            <div class="container">
-                <div class="navbar-header">
-                    <a href="/" class="navbar-brand">Tealogger</a>
-                </div>
-                <ul class="nav navbar-nav">
-                    <li><a href="/home">Home</a></li>
-                    <li><a href="/purchases">Purchases</a></li>
-                </ul>
-                {% if user %}
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a>
-                            <strong>{{ user }}</strong>
-                        </a></li>
-                        <li><a href="/logout">Log out</a></li>
-                    </ul>
-                {% endif %}
-            </div>
-        </div>
+
+    {% include 'navbar.html' %}
+
+    {% block body %}
         <div class="container">
-            <h1>{{ self.title() }}</h1>
+            <div class="page-header">
+                <h1>{{ self.title() }}</h1>
+            </div>
             {% block content %}{% endblock %}
         </div>
+    {% endblock %}
+
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+
     </body>
+
 </html>

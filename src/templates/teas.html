@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% set active = 'teas' %}
+{% block title %}{{ active_category|capitalize if active_category else 'All' }} tea{% endblock %}
+{% block content %}
+            <nav>
+                <ul class="nav nav-pills nav-justified">
+                    <li role="presentation"{% if not active_category %} class="active"{% endif %}>
+                        <a href="{{ url_for('teas') }}">All</a>
+                    </li>
+                {% for category_id, category in categories %}
+                    <li role="presentation"{% if category|lower == active_category|lower %} class="active"{% endif %}>
+                        <a href="{{ url_for('teas', category=category|lower) }}">{{ category|capitalize }}</a>
+                    </li>
+                {% endfor %}
+                </ul>
+            </nav>
+            <p>
+                <form action="{{ url_for('teas') }}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" id="search" name="search">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit" aria-label="Search">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </p>
+            <p>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Tea</th>
+                            <th>Purchases</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for tea_id, tea, num in rows %}
+                        <tr>
+                            <td><a href="/tea/{{ tea_id }}">{{ tea }}</a></td>
+                            <td>{{ num }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <nav>
+                    <ul class="pagination">
+                    {% set min_page = active_page - 5 if active_page - 5 > 1 else 1 %}
+                    {% set max_page = active_page + 5 if active_page + 5 < pages else pages %}
+                        {% if min_page > 1 %}<li><a>...</a></li>{% endif %}
+                    {% for page in range(min_page, max_page + 1) %}
+                        <li{% if page == active_page %} class="active"{% endif %}>
+                            <a href="{{ url_for('teas', page=page, category=active_category) }}">{{ page }}</a>
+                        </li>
+                    {% endfor %}
+                        {% if max_page < pages %}<li><a>...</a></li>{% endif %}
+                    </ul>
+                </nav>
+            </p>
+{% endblock %}

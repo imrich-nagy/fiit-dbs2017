@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}{{ name }}{% endblock %}
+{% block content %}
+            <p>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <td>{{ name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Category</th>
+                            <td>{{ category }}</td>
+                        </tr>
+                        <tr>
+                            <th>Variety</th>
+                            <td>{{ variety }}</td>
+                        </tr>
+                        <tr>
+                            <th>Origin</th>
+                            <td>{{ origin }}</td>
+                        </tr>
+                        <tr>
+                            <th>Vendor</th>
+                            <td>{{ vendor }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </p>
+            <h1 class="page-header">Tasting notes</h1>
+        {% for note_id, note_date, note, flavors in notes %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Tasting #{{ loop.index }}</h2>
+                </div>
+                <div class="panel-body">
+                    <form action="{{ url_for('update_note', note_id=note_id, tea_id=tea_id) }}" method="post">
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input class="form-control" type="date" id="date" name="date" value="{{ note_date }}">
+                        </div>
+                        <p>
+                        {% for flavor in flavors if flavor %}
+                            <span class="label label-default">{{ flavor }}</span>
+                        {% endfor %}
+                        </p>
+                        <div class="form-group">
+                            <label for="notes">Notes</label>
+                            <textarea class="form-control" id="notes" name="notes">{{ note }}</textarea>
+                        </div>
+                        <button class="btn btn-primary" type="submit" name="action" value="update">Save</button>
+                        <button class="btn btn-danger" type="submit" name="action" value="remove">Remove</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">New tasting note...</h2>
+                </div>
+                <div class="panel-body">
+                    <form action="{{ url_for('create_note', tea_id=tea_id) }}" method="post">
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input class="form-control" type="date" id="date" name="date" value="{{ today }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="flavors">Flavors</label>
+                            <textarea class="form-control" id="flavors" name="flavors"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="notes">Notes</label>
+                            <textarea class="form-control" id="notes" name="notes"></textarea>
+                        </div>
+                        <button class="btn btn-success" type="submit" name="action" value="create">Create</button>
+                    </form>
+                </div>
+            </div>
+{% endblock %}
