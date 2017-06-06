@@ -1,0 +1,28 @@
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="{{ url_for('root') }}" class="navbar-brand">
+                        <span class="middle">
+                            <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
+                        </span>
+                        Tealogger
+                    </a>
+                </div>
+            {% include 'nav.html' %}
+            {% if user %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <p class="navbar-text">
+                            <span class="middle">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            </span>
+                            <strong>{{ user }}</strong>
+                        </p>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('logout') }}">Log out</a>
+                    </li>
+                </ul>
+            {% endif %}
+            </div>
+        </nav>

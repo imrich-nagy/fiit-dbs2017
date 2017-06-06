@@ -1,0 +1,13 @@
+{% set navigation = [
+    ('home', 'Home'),
+    ('teas', 'Tea'),
+    ('purchases', 'Purchases'),
+    ('flavors', 'Flavors')
+] %}
+                <ul class="nav navbar-nav">
+                {% for id, caption in navigation %}
+                    <li{% if id == active %} class="active"{% endif %}>
+                        <a href="{{ url_for(id) }}">{{ caption }}</a>
+                    </li>
+                {% endfor %}
+                </ul>
